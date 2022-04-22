@@ -1,12 +1,12 @@
-import {url} from "../App";
+import { url } from "../App";
 
 function DeleteModal(props) {
   function confirmHandler() {
-    const deleteUrl = url + "/" + props.deleteId; 
+    const deleteUrl = url + "/" + props.deleteId;
     fetch(deleteUrl, {
       method: "DELETE"
     }).then((response) => {
-      if(!response.ok) {
+      if (!response.ok) {
         alert('Delete failed');
         props.closeModal();
       } else {
@@ -22,7 +22,7 @@ function DeleteModal(props) {
   return (
     <div className="modal">
       <p>Are you sure?</p>
-      <button className="btn btn--alt" onClick={confirmHandler}>
+      <button className="btn" onClick={confirmHandler}>
         Confirm
       </button>
       <button className="btn" onClick={cancelHandler}>
