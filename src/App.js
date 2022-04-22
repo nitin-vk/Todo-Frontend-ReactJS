@@ -2,7 +2,7 @@ import React from "react";
 import Todo from "./components/Todo";
 import { useRef, useState, useEffect } from "react";
 
-export const url = "https://nitin-db.herokuapp.com/api/v1/"; 
+export const url = "https://nitin-db.herokuapp.com/api/v1/";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -23,27 +23,38 @@ function App() {
         setTodoList(newList);
       });
   }
+  function completeItem() {
+    const patchUrl = url + "/" + props.id;
+    fetch(patchUrl, {
+      method: "PATCH"
+    }).then((response) => {
+      if (!response.ok) {
+        alert("Completing task failed");
+      }
+      props.getItems();
+    });
+  }
 
   function submitHandler(event) {
     event.preventDefault();
     const addUrl = url;
     const contentInput = todoContentRef.current.value;
     const addData = {
-      title:contentInput
+      title: contentInput
     };
     fetch(addUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(addData)
     }).then((response) => {
-        if(!response.ok) {
-          alert('Add failed');
-        } else {
-          return response.json();
-        }
+      if (!response.ok) {
+        alert('Add failed');
+      } else {
+        return response.json();
+      }
     }).then(response => {
-        event.target.reset();
-        getItems();
+      event.target.reset();
+      getItems();
     });
   }
 
@@ -66,11 +77,40 @@ function App() {
         <p>Loading...</p>
       ) : (
         todoList.map((item) => {
-          return <Todo key={item.id} id={item.id} title={item.title} completed={item.completed} getItems={getItems}/>;
+          return <Todo key={item.id} id={item.id} title={item.title} completed={item.completed} getItems={getItems} />;
         })
       )}
+      <div className="card">
+        <div>
+          {
+            <input type="checkbox" onClick={completeItem} checked={props.completed ? "checked" : ""} readOnly />
+          }
+          <p>{props.title}</p>
+        </div>
+        <div className="actions">
+          <button className="btn edit">
+            Edit
+          </button>
+          <button className="btn delete" onClick={deleteModalOpenHandler}>
+            Delete
+          </button>
+        </div>
+        {deleteModalOpen ? (
+          <section>
+            <DeleteModal
+              deleteId={props.id}
+              closeModal={deleteModalCloseHandler}
+              getItems={props.getItems}
+            />
+            <Backdrop closeModal={deleteModalCloseHandler} />
+          </section>
+        ) : null}
+      </div>
     </div>
+
+
   );
+
 }
 
 export default App;
