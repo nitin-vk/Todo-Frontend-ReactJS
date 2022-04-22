@@ -10,7 +10,7 @@ function DeleteModal(props) {
         alert('Delete failed');
         props.closeModal();
       } else {
-        props.getItems();
+        return response.json();
       }
     });
   }
