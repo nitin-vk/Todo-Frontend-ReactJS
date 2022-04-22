@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";
 import Backdrop from "./Backdrop";
-import {url} from "../App";
+import { url } from "../App";
 
 function Todo(props) {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -31,7 +31,7 @@ function Todo(props) {
     <div className="card">
       <div>
         {
-          <input type="checkbox" onClick={completeItem} checked={props.completed ? "checked" : ""} readOnly/>
+          <input type="checkbox" onClick={completeItem} checked={props.completed ? "checked" : ""} />
         }
         <p>{props.title}</p>
       </div>
