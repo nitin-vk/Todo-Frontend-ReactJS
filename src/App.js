@@ -1,7 +1,7 @@
 import React from "react";
 import Todo from "./components/Todo";
-import DeleteModal from "./DeleteModal";
-import Backdrop from "./Backdrop";
+import DeleteModal from "./components/DeleteModal";
+import Backdrop from "./components/Backdrop";
 
 import { useRef, useState, useEffect } from "react";
 
@@ -10,6 +10,7 @@ export const url = "https://nitin-db.herokuapp.com/api/v1/";
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const todoContentRef = useRef();
 
   function getItems() {
