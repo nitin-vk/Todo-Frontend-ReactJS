@@ -2,7 +2,7 @@ import React from "react";
 import Todo from "./components/Todo";
 import DeleteModal from "./DeleteModal";
 import Backdrop from "./Backdrop";
-import { url } from "../App";
+
 import { useRef, useState, useEffect } from "react";
 
 export const url = "https://nitin-db.herokuapp.com/api/v1/";
